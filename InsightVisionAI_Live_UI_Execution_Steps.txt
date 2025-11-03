@@ -1,0 +1,136 @@
+InsightVision AI - Live UI Execution Steps
+==========================================
+
+This guide will help you run the real-time camera-based Q&A system
+with the new Tkinter graphical interface.
+
+------------------------------------------------------------
+1️⃣ PREREQUISITES
+------------------------------------------------------------
+- Python 3.9 or higher
+- A working webcam or connected external camera
+- Stable internet connection (for Gemini API)
+- The following files should be in the same project directory:
+    - config.py
+    - memory_bank.py
+    - qa_system.py
+    - utils.py
+    - video_processor.py
+    - video_qa_ui.py
+    - Live_with_camera.py (or Live_main.py)
+    - Camera_processing.py
+
+------------------------------------------------------------
+2️⃣ INSTALL REQUIRED LIBRARIES
+------------------------------------------------------------
+Run these commands in your terminal or Colab cell:
+
+pip install ultralytics sentence-transformers faiss-cpu google-generativeai tqdm opencv-python pillow
+
+(Optional, for Colab)
+pip install google-colab
+
+------------------------------------------------------------
+3️⃣ CONFIGURATION (config.py)
+------------------------------------------------------------
+Edit the file 'config.py' and verify these parameters:
+
+    YOLO_MODEL = 'yolov8l.pt'
+    GEMINI_API_KEY = "YOUR_VALID_GEMINI_KEY"
+    FOCAL_LENGTH = 1000        # Replace with calibrated value
+    YOLO_CONFIDENCE_THRESHOLD = 0.3
+    KNOWN_WIDTHS_M = { ... }   # Keep as default or modify if calibrated
+
+If you are running on live camera, you do NOT need to modify VIDEO_PATH.
+
+------------------------------------------------------------
+4️⃣ RUNNING THE LIVE CAMERA UI
+------------------------------------------------------------
+To launch the graphical application, run:
+
+    python video_qa_ui.py
+
+This will open a Tkinter window titled 'Video QA Assistant'.
+
+------------------------------------------------------------
+5️⃣ USING THE UI
+------------------------------------------------------------
+🧩 Step-by-Step Usage:
+
+1. Click 'Initialize Models'
+   - Loads YOLOv8, SentenceTransformer, FAISS index, and Gemini-Pro.
+
+2. Click 'Start Video Processing'
+   - Starts your webcam feed and begins live object detection.
+   - A small video preview will appear inside the window.
+   - Progress bar updates as frames are processed.
+
+3. In the 'Ask a Question' section:
+   - Type your question (e.g., 'Where is the bottle?')
+   - Press Enter or click 'Ask'
+   - The system retrieves related object memories, reasons via Gemini, 
+     and displays the answer below.
+
+4. To stop:
+   - Click 'Stop' or close the window.
+
+------------------------------------------------------------
+6️⃣ OUTPUTS
+------------------------------------------------------------
+- Live visual detection shown in preview panel.
+- Textual Q&A results displayed below.
+- Annotated highlights saved in:
+      captures/
+  or automatically synced to:
+      /content/drive/MyDrive/ObjectTrackingCaptures (if using Colab)
+
+------------------------------------------------------------
+7️⃣ ALTERNATIVE CONSOLE MODE (OPTIONAL)
+------------------------------------------------------------
+If you prefer console interaction without UI:
+
+Run:
+    python Live_with_camera.py
+
+Then type questions directly in the terminal such as:
+    🤔 User Question: When did the person appear?
+    🤖 Answer: The person appeared around 2.3 seconds into the live stream.
+
+Type 'quit' to exit safely.
+
+------------------------------------------------------------
+8️⃣ TROUBLESHOOTING
+------------------------------------------------------------
+- If YOLO fails to load:
+    → Check internet connection; the model downloads automatically.
+- If camera feed doesn’t start:
+    → Ensure no other app is using the webcam.
+    → Change camera index inside Camera_processing.py (default = 0).
+- If no Gemini answer:
+    → Ensure GEMINI_API_KEY is valid and network is stable.
+- If video preview shows blank:
+    → Install both 'opencv-python' and 'Pillow'.
+
+------------------------------------------------------------
+✅ SUCCESSFUL RUN INDICATORS
+------------------------------------------------------------
+✅ YOLO model loaded message in console.
+✅ Progress bar updating in UI.
+✅ Detected objects logged in the 'Activity Log'.
+✅ Visual + Text answers shown for your questions.
+
+------------------------------------------------------------
+🎯 QUICK COMMAND SUMMARY
+------------------------------------------------------------
+# Local system
+python video_qa_ui.py
+
+# Colab (mounted Drive)
+!python video_qa_ui.py
+
+# Console mode (no GUI)
+python Live_with_camera.py
+
+------------------------------------------------------------
+END OF FILE
+------------------------------------------------------------
