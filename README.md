@@ -40,6 +40,10 @@ It:
 
 ---
 
+## 📘 For Setup & Execution Guide:
+See the detailed step-by-step instructions in InsightVisionAI_Execution_Steps.txt
+ to successfully configure and run the project.
+
 ## 🏗️ System Architecture
 
 ```mermaid
@@ -50,3 +54,5 @@ flowchart TD
     D --> E["💬 Gemini Q&A System"]
     E --> F["🖼️ Highlighted Frames + Text Answers"]
     F --> G["🪟 Tkinter GUI Interface"]
+
+
